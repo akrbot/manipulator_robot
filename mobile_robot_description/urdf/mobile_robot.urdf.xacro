@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot name="mobile_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="package_name" value="robot_description" />
+  <xacro:property name="robot_name" value="mobile_robot" />
+
+  <xacro:include filename="$(find ${package_name})/urdf/include/common_macros.urdf.xacro" />
+  <xacro:include filename="$(find ${package_name})/urdf/include/common_sensors.xacro" />
+  <xacro:include filename="$(find ${package_name})/urdf/mobile_robot.gazebo.xacro" />
+
+  <xacro:property name="sensor_yaml" value="$(find ${package_name})/config/sensors.yaml" />
+  <xacro:property name="sensor_prop" value="${xacro.load_yaml(sensor_yaml)}"/>
+
+  <xacro:property name="baselen" value="0.260" />
+  <xacro:property name="basewidth" value="0.152" />
+  <xacro:property name="basethick" value="0.003" />
+  <xacro:property name="wheeldiam" value="0.056" />
+  <xacro:property name="wheelwidth" value="0.038" />
+  <xacro:property name="wheel_x_pos" value="${baselen/2}" />
+  <xacro:property name="wheel_y_pos" value="${wheelwidth/2+basewidth/2+.013}" />
+  <xacro:property name="wheel_z_pos" value="${-((basethick/2)+(wheeldiam/2)+.007)}" />
+  <!-- <xacro:property name="pi" value="3.1415926535" /> -->
+  <xacro:property name="collision_inflation" value="1.1" />
+
+  <link name="base_footprint" />
+  <!-- Joint to connect base_footprint with base_link -->
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+    <origin xyz="0 0 ${(wheeldiam/2)+(-wheel_z_pos)}" rpy="0 0 0" />
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="${baselen} ${basewidth} ${basethick}" />
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${baselen*collision_inflation} ${basewidth*collision_inflation} ${basethick*collision_inflation}" />
+      </geometry>
+    </collision>
+    <xacro:base_inertia m="1.065" 
+    x="${baselen}" y="${basewidth}" z="${basethick}" 
+    o_xyz="0.0 0.0 0.0" o_rpy="0.0 0.0 0.0"
+    />
+  </link>
+
+  <xacro:wheel prefix="left" suffix="front" m="0.087" r="${wheeldiam/2}" l="${wheelwidth}" x_pos="${wheel_x_pos-.057}" y_pos="${wheel_y_pos}" z_pos="${wheel_z_pos}" collision_inflation="${collision_inflation}"/>
+  <xacro:wheel prefix="left" suffix="back" m="0.087" r="${wheeldiam/2}" l="${wheelwidth}" x_pos="${-wheel_x_pos+.042}" y_pos="${wheel_y_pos}" z_pos="${wheel_z_pos}" collision_inflation="${collision_inflation}"/>
+  <xacro:wheel prefix="right" suffix="front" m="0.087" r="${wheeldiam/2}" l="${wheelwidth}" x_pos="${wheel_x_pos-.057}" y_pos="${-wheel_y_pos}" z_pos="${wheel_z_pos}" collision_inflation="${collision_inflation}"/>
+  <xacro:wheel prefix="right" suffix="back" m="0.087" r="${wheeldiam/2}" l="${wheelwidth}" x_pos="${-wheel_x_pos+.042}" y_pos="${-wheel_y_pos}" z_pos="${wheel_z_pos}" collision_inflation="${collision_inflation}"/>
+
+  <!-- Sensors -->
+  <xacro:gpu_laser prefix="rplidar" parent_link="base_link"
+                   sensor_prop="${sensor_prop}"> 
+  </xacro:gpu_laser>
+
+
+
+</robot>

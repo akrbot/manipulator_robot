@@ -18,16 +18,16 @@
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="hello_robot/robot_description"
+  <param name="robot_description"
      command="$(find xacro)/xacro '$(find robot_description)/urdf/mobile_robot.urdf.xacro'" />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
 
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-    args="-x 2 -y 9 -z 0 -urdf -model hello_robot -param /hello_robot/robot_description" />
+    args="-x 2 -y 9 -z 0 -urdf -model hello_robot -param robot_description" />
     
   <!-- include launch file for controllers -->  
-  <include file="$(find robot_control)/launch/hello_robot_control.launch" />
+  <include file="$(find robot_control)/launch/robot_control.launch" />
   
 
 </launch>

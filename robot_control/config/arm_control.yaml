@@ -1,0 +1,8 @@
+#Controller to control end robot joints
+arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints: [joint1, joint2, joint3, joint4, joint5]
+#Controller to control end effector joints
+gripper_ee_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints: [finger1_joint, finger2_joint]

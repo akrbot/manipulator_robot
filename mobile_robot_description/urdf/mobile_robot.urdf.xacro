@@ -53,6 +53,8 @@
   <xacro:wheel prefix="right" suffix="front" m="0.087" r="${wheeldiam/2}" l="${wheelwidth}" x_pos="${wheel_x_pos-.057}" y_pos="${-wheel_y_pos}" z_pos="${wheel_z_pos}" collision_inflation="${collision_inflation}"/>
   <xacro:wheel prefix="right" suffix="back" m="0.087" r="${wheeldiam/2}" l="${wheelwidth}" x_pos="${-wheel_x_pos+.042}" y_pos="${-wheel_y_pos}" z_pos="${wheel_z_pos}" collision_inflation="${collision_inflation}"/>
 
+  
+
   <!-- Sensors -->
   <xacro:gpu_laser prefix="rplidar" parent_link="base_link"
                    sensor_prop="${sensor_prop}"> 

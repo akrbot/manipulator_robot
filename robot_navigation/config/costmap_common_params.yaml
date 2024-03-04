@@ -11,7 +11,7 @@ navigation_map:
 obstacles:
   observation_sources: scan
   scan:
-    topic: hello_robot/scan
+    topic: mobile_robot/scan
     data_type: LaserScan
     sensor_frame: rplidar_gpu_laser_link
     clearing: true

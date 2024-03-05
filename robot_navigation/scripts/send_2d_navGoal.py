@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 
 
 import rospy
@@ -31,7 +31,7 @@ def send_2dnav_goal(Pose2d,orientation):
         return client.get_result()
 
 if __name__ == '__main__':
-    goal_list = [[2,5],[1,5],[1,9],[0,9],[0,5]]
+    goal_list = [[0,-5],[-2,-5],[-2,0],[-4,-0],[-4,-5]]
     orientation_list = [[ 0, 0, -0.7071068, 0.7071068 ],[ 0, 0, 1, 0 ],[ 0, 0, 0.7071068, 0.7071068 ],[ 0, 0, 1, 0 ],[ 0, 0, -0.7071068, 0.7071068 ]]
    
     try:
